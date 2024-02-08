@@ -28,7 +28,7 @@ jobs:
       
       - name: Install latex
         id: install_latex
-        run: sudo apt-get install –no-install-recommends texlive-full
+        run: sudo apt-get install -–no-install-recommends texlive-full
       
       - name: Build resume
         run: make
