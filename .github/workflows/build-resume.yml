@@ -20,14 +20,11 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: texlive/texlive
     steps:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v3
-      - name: Install latex
-        id: install_latex
-        run: sudo apt-get install texlive-full libyaml-tiny-perl libfile-homedir-perl
       - name: Build resume
         run: make
       - name: Create Release
