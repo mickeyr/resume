@@ -1,0 +1,17 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/apt-packages": {
+      "updatePackages": true,
+      "packages": "texlive-full, libyaml-tiny-perl, install libfile-homedir-perl"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "james-yu.latex-workshop",
+	      "ms-vscode.makefile-tools"
+      ]
+    }
+  }
+}
