@@ -25,18 +25,25 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v3
+      
       - name: Build resume
         run: make
+      
+      - name: Calculate New Hendrix API Version
+        id: versioning
+        uses: codacy/git-version@80c816f11db8dea5e3a81025f598193015b51832 # 2.8.0
+
       - name: Create Release
         uses: actions/create-release@v1
         id: create_release
         with:
           draft: false
           prerelease: false
-          release_name: Release ${{ github.sha }}
-          tag_name: ${{ github.sha }}
+          release_name: Release ${{ steps.versioning.outputs.version }}
+          tag_name: ${{ steps.versioning.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload Resume
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
