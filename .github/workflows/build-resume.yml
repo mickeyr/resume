@@ -21,10 +21,13 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Build Resume
     steps:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       
       - name: Install latex
         id: install_latex
