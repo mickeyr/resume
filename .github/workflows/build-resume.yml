@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Install latex
         id: install_latex
-        run: sudo apt-get install texlive-full libyaml-tiny-perl install libfile-homedir-perl
+        run: sudo apt-get install texlive-full libyaml-tiny-perl libfile-homedir-perl
       - name: Build resume
         run: make
       - name: Create Release
