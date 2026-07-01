@@ -3,7 +3,7 @@
   "features": {
     "ghcr.io/devcontainers-contrib/features/apt-packages": {
       "updatePackages": true,
-      "packages": "texlive-full, libyaml-tiny-perl, install libfile-homedir-perl"
+      "packages": "texlive-full, libyaml-tiny-perl, libfile-homedir-perl"
     }
   },
   "customizations": {

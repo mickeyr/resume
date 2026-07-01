@@ -1,0 +1,43 @@
+# mise = the "devenv without nix" activation layer (you already have it installed).
+# Auto-activates on `cd` once you've run `mise activate zsh` in your ~/.zshrc.
+# It manages tool versions, env vars and tasks per project. System libs (texlive)
+# stay in the distrobox; mise handles project tooling + task running.
+#
+#   mise run build     # compile the resume
+#   mise tasks         # list tasks
+
+[tools]
+# Installed under shared ~/.local/share/mise, so the same nvim is on PATH on the
+# host and inside the distrobox (mise activates in both). Beats apt's stale 0.9.5.
+neovim = "latest"
+# nvim-treesitter's `tree-sitter build` invokes node to generate/compile parsers.
+node = "lts"
+# Claude Code CLI (shared via mise, so present on host + in the box).
+claude = "latest"
+
+# mise's npm backend skips package postinstall, so Claude Code's native binary isn't
+# fetched. Run its install.cjs after every `mise install` (idempotent; no-ops if present).
+[hooks]
+postinstall = 'cjs=$(find ~/.local/share/mise/installs/claude -name install.cjs 2>/dev/null | head -1); test -n "$cjs" && node "$cjs" || true'
+
+[env]
+EDITOR = "nvim"
+# Force distrobox to use podman — docker's runc hits a dev/ptmx init bug on this kernel.
+DBX_CONTAINER_MANAGER = "podman"
+
+[tasks.up]
+description = "Create the distrobox from distrobox.ini if it doesn't exist"
+run = "distrobox list | grep -qw resume || distrobox assemble create"
+
+[tasks.shell]
+description = "Enter the distrobox dev container (builds it first if needed)"
+depends = ["up"]
+run = "distrobox enter resume"
+
+[tasks.build]
+description = "Compile resume.pdf with xelatex"
+run = "xelatex resume.tex"
+
+[tasks.watch]
+description = "Rebuild on save via latexmk"
+run = "latexmk -xelatex -pvc resume.tex"
