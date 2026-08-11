@@ -1,0 +1,54 @@
+%%% Shared body for the moderncv layout candidates.
+%%% The candidates differ only in \moderncvstyle, which must be set by the wrapper
+%%% before this file is input; everything below is identical across styles.
+
+\moderncvcolor{red}
+
+\usepackage[scale=0.83]{geometry}
+\setlength{\hintscolumnwidth}{3.1cm}
+
+\input{shared/content.tex}
+
+%%% moderncv boxes the \cventry description argument, so a long nested itemize there
+%%% cannot break across pages and gets pushed whole to the next one. \cvlistitem is a
+%%% top-level, page-breakable bullet, so bullets are emitted after each entry instead.
+\renewcommand{\rItem}[1]{\cvlistitem{#1}}
+
+\name{\myFirstName}{\myLastName}
+\title{\myPosition}
+\phone[mobile]{\myPhone}
+\email{\myEmail}
+\social[github]{\myGithub}
+\social[linkedin]{\myLinkedin}
+\extrainfo{\myCity}
+
+\begin{document}
+\makecvtitle
+
+\section{Summary}
+\cvitem{}{\mySummary}
+
+\section{Skills}
+\cvitem{Cloud \& Infrastructure}{\skillsCloud}
+\cvitem{CI/CD \& DevSecOps}{\skillsCicd}
+\cvitem{Observability}{\skillsObservability}
+\cvitem{Languages}{\skillsLanguages}
+\cvitem{Frameworks \& Data}{\skillsFrameworks}
+
+\section{Experience}
+\cventry{March 2015 -- Present}{Senior Software Architect}{CareEvolution}{Full Time Remote}{}{}
+\bulletsCareEvolution
+\cventry{March 2014 -- March 2015}{Enterprise Architect}{Servpro Industries}{Gallatin, TN}{}{}
+\bulletsServpro
+\cventry{August 2010 -- March 2014}{Senior Software Developer}{Little Lambs Fundraising}{Gallatin, TN}{}{}
+\bulletsLittleLambs
+\cventry{August 2004 -- August 2010}{Software Developer}{Cracker Barrel Old Country Store}{Lebanon, TN}{}{}
+\bulletsCrackerBarrel
+
+\section{Education}
+\cventry{December 2004}{B.S. in Computer Science}{Middle Tennessee State University}{Murfreesboro, TN}{}{}
+
+\section{Certifications}
+\cventry{August 2026}{AWS Certified AI Practitioner}{Amazon Web Services}{}{}{}
+
+\end{document}

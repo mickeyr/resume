@@ -1,0 +1,121 @@
+%%% Template-neutral resume content.
+%%%
+%%% Each layout candidate needs the same words in a different macro set. Keeping the
+%%% prose here means an edit to a bullet lands in every candidate at once, and an A/B
+%%% comparison is comparing layouts rather than drifting copies of the text.
+%%%
+%%% Bullets are emitted as \rItem{...}, which each template redefines before use.
+%%% This exists because moderncv typesets a \cventry description argument inside a box,
+%%% and a box cannot break across pages: a nested 14-item itemize there gets pushed
+%%% whole to the next page and leaves most of a page blank. Mapping \rItem onto a
+%%% page-breakable per-class construct (\cvlistitem, or a plain \item at top level)
+%%% avoids that.
+\providecommand{\rItem}[1]{\item #1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     Facts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myFirstName}{Malcolm}
+\newcommand{\myLastName}{Roberts}
+\newcommand{\myName}{\myFirstName{} \myLastName}
+\newcommand{\myPosition}{Software Architect}
+\newcommand{\myEmail}{malcolm@mroberts.dev}
+\newcommand{\myPhone}{(615) 450-5940}
+\newcommand{\myCity}{Gallatin, TN}
+\newcommand{\myAddress}{1049 Laffite Way, Gallatin TN, 37066}
+\newcommand{\myGithub}{mickeyr}
+\newcommand{\myLinkedin}{mickeyr}
+
+\newcommand{\mySummary}{Software Architect with 20+ years building and owning cloud
+platforms end-to-end. For the last decade I have owned the API platform, CI/CD,
+infrastructure, and security posture for a HIPAA-regulated healthcare data system on
+AWS, certified at FISMA Moderate: from a Kong and .NET/YARP API gateway and 150+
+Terraform modules to supply-chain-hardened delivery pipelines.}
+
+\newcommand{\mySummaryShort}{Software Architect with 20+ years building and owning
+cloud platforms end-to-end. For the last decade I have owned the API platform, CI/CD,
+infrastructure, and security posture for a HIPAA-regulated, FISMA Moderate healthcare
+data system on AWS.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     Skills
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\skillsCloud}{AWS, Terraform, OpenTofu, Terragrunt, ECS/Fargate, Docker,
+Kong}
+\newcommand{\skillsCicd}{GitHub Actions, Automated Deploys, Ephemeral PR Environments,
+Blue/Green Deployments, Supply-Chain Hardening}
+\newcommand{\skillsObservability}{OpenTelemetry, Prometheus, Grafana, CloudWatch,
+Splunk}
+\newcommand{\skillsLanguages}{C\#, TypeScript, JavaScript, Python, Rust, SQL, Lua, PHP}
+\newcommand{\skillsFrameworks}{.NET / ASP.NET Core, .NET Aspire, YARP, React, FastAPI,
+EF Core, PostgreSQL, MSSQL Server, MySQL, Redis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     Experience bullets
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\bulletsCareEvolution}{%
+  \rItem{Architected and own the AWS platform (multi-account, multi-VPC) behind
+    Orchestrate, CareEvolution's cloud-native healthcare data-integration product
+    (Terminology, Convert, Insight, and Identity APIs) used across 200M+ lives.}
+  \rItem{Implemented the Kong API gateway and downstream-signed JWT authorization, with
+    usage tracking and freemium tier enforcement.}
+  \rItem{Engineered a from-scratch gateway replacement in .NET 10 \& YARP as the sole
+    developer featuring AWS Lambda request proxying, API keys and OIDC authentication.}
+  \rItem{Built a CI/CD platform with self-service ephemeral per-pull-request
+    environments: dedicated ECS services, Postgres databases, and header based routing
+    with automated smoke tests and teardown, plus blue/green production deploys on
+    merge.}
+  \rItem{Hardened software delivery across services: SHA-pinned, least-privilege GitHub
+    Actions gated by zizmor and actionlint with findings surfaced in GitHub Advanced
+    Security; distroless, read-only-root-filesystem, capability-dropped containers on
+    ARM64/Graviton Fargate.}
+  \rItem{Own cloud infrastructure-as-code across 15+ AWS accounts using
+    Terraform/\allowbreak{}OpenTofu and 150+ reusable modules on Terragrunt, with
+    Control Tower and IAM Identity Center SSO.}
+  \rItem{Drove org-wide security and compliance posture on a platform certified at FISMA
+    Moderate, supporting a NIST 800-53 Rev.~5 control program: DNSSEC across all zones,
+    AWS Security Hub, FIPS ALB policies, WAF, default encryption, and Tenable/Nessus
+    vulnerability-scanning infrastructure.}
+  \rItem{Designed serverless services including a credential-management API with
+    saga-style consistency and per-customer KMS keys with automated secret rotation.}
+  \rItem{Implemented caching and service-authentication workstream for an internal
+    healthcare event-query platform (ASP.NET Core, React): a Redis L2 cache with a
+    Lambda cache-writer, and a migration of service-to-service auth to AWS VPC Lattice
+    SigV4 request signing.}
+  \rItem{Own logging, metrics, and tracing across the platform: implemented and
+    maintained Splunk, plus OpenTelemetry/ADOT and Prometheus instrumentation.}
+  \rItem{Own the React front end for the Orchestrate developer portal and a UI-gated
+    sandbox proxy offering free, quota-exempt API trials; also own self-service SFTP
+    provisioning via AWS Transfer Family for pipelines processing billions of records.}
+  \rItem{Implemented the initial version of RKStudio, a clinical-research study platform
+    within MyDataHelps: access control, organization settings, localization,
+    blinded-study mode, and survey authoring, plus HIPAA-oriented security hardening
+    (Veracode remediation, patient access policies).}
+  \rItem{Owned core subsystems of SupportCentral, an internal healthcare monitoring
+    platform: a CQRS request/authorization pipeline, Roslyn-scripted monitoring sensors,
+    Prometheus observability, and multi-channel alerting (Slack, PagerDuty, email).}
+  \rItem{Built internal automation in Rust (AWS Lambda on Graviton) for multi-tenant
+    resource cleanup and Kong/Cognito user-inventory compliance reporting.}
+}
+
+\newcommand{\bulletsServpro}{%
+  \rItem{Took over maintenance of Servpro's mobile app (Objective-C \& JavaScript on
+    Apache Cordova) within the first month, then found and fixed several major
+    performance issues in a new flagship product.}
+  \rItem{Won the department's rock star award the first period I was eligible; promoted
+    to architect within the first year.}
+}
+
+\newcommand{\bulletsLittleLambs}{%
+  \rItem{Built integration and automation across warehouse and ordering systems: barcode
+    picking for accuracy, multi-channel delivery notifications (call, text, email), and
+    a Django CRM/order-entry system.}
+  \rItem{Owned all IT systems and decisions.}
+}
+
+\newcommand{\bulletsCrackerBarrel}{%
+  \rItem{Developed and maintained a PCI-compliant credit-card processing system in RPGLE
+    on an iSeries server, interfacing with the Infinium package.}
+  \rItem{Built custom HR/Financial software (PHP, C\#, ASP.net) and integrated E-Verify
+    with the existing HR system.}
+}
