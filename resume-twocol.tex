@@ -1,0 +1,180 @@
+% !TeX program = xelatex
+%%% Two-column layout experiment, built on AltaCV (https://github.com/liantze/AltaCV).
+%%% The one-column awesome-cv version in resume.tex is unchanged; both build side by side.
+\documentclass[10pt,letterpaper,ragged2e,withhyper]{altacv}
+
+\geometry{left=1.3cm,right=1.3cm,top=1.3cm,bottom=1.6cm,columnsep=1.1cm}
+
+%%% AltaCV expects the document to load paracol itself
+\usepackage{paracol}
+
+%%% Reuse the fonts already vendored for awesome-cv so both layouts look related
+\setmainfont{Roboto}[
+  Path=fonts/,
+  Extension=.ttf,
+  UprightFont=*-Regular,
+  BoldFont=*-Bold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-BoldItalic
+]
+
+%%% Match awesome-cv's accent (awesome-red) for visual continuity
+\definecolor{AwesomeRed}{HTML}{DC3522}
+\definecolor{DarkNight}{HTML}{131A28}
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{666666}
+
+\colorlet{name}{DarkNight}
+\colorlet{tagline}{AwesomeRed}
+\colorlet{heading}{AwesomeRed}
+\colorlet{headingrule}{AwesomeRed}
+\colorlet{subheading}{DarkNight}
+\colorlet{accent}{AwesomeRed}
+\colorlet{emphasis}{SlateGrey}
+\colorlet{body}{LightGrey}
+
+%%% Narrow columns plus long hyphenated compounds (HIPAA-regulated, SHA-pinned)
+%%% leave TeX no good break; a little emergency stretch clears the last overfulls.
+\setlength{\emergencystretch}{1em}
+
+\renewcommand{\cvItemMarker}{{\small\textbullet}}
+\renewcommand{\cvRatingMarker}{\faCircle}
+
+%%% Upstream \cvtag is sized for a wider sidebar; at 0.34 columnratio the longer
+%%% tags overrun the column. Same box, smaller type and tighter padding.
+%%% The trailing \penalty0 plus glue is the separator between tags: tikz can swallow
+%%% the whitespace after \node's semicolon, which leaves a row of tags with no legal
+%%% breakpoint and forces an overfull line rather than a wrap.
+\renewcommand{\cvtag}[1]{%
+  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=0.55ex,%
+    inner ysep=0.6ex,text height=1.4ex,text depth=.25ex]{\small#1};%
+  \penalty0\hskip 0.3em plus 0.2em minus 0.1em\relax
+}
+
+%%% A labelled block of \cvtag boxes, wrapping over as many lines as it needs.
+%%% flushleft rather than a bare \raggedright: inside paracol the plain switch did not
+%%% survive, leaving justified glue that overfills the column instead of wrapping.
+\newcommand{\skillgroup}[2]{%
+  \textbf{\small\color{emphasis}#1}\par
+  %%% \hbadness: with ragged-right tag rows the leftover space goes to the right
+  %%% margin, so an "underfull" line is invisible rather than a defect worth reporting.
+  \begin{flushleft}\sloppy\hbadness=10000 #2\end{flushleft}
+  \smallskip
+}
+
+\begin{document}
+
+\name{Malcolm Roberts}
+\tagline{Software Architect}
+\personalinfo{%
+  \email{malcolm@mroberts.dev}
+  \phone{(615) 450-5940}
+  \location{Gallatin, TN}
+  \github{mickeyr}
+  \linkedin{mickeyr}
+}
+
+\makecvheader
+\AtBeginEnvironment{itemize}{\small}
+
+%%% Sidebar on the left, main content on the right
+%%% Wide enough for the longest single \cvtag ("Supply-Chain Hardening"): a tag is one
+%%% unbreakable box, so a narrower sidebar cannot wrap it and spills it into the main
+%%% column instead.
+\columnratio{0.40}
+\begin{paracol}{2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     Sidebar
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% \cvtag boxes are unbreakable, so a justified sidebar overflows rather than
+%%% wrapping early; ragged right gives the tag rows somewhere to break.
+\raggedright
+
+\cvsection{Summary}
+
+Software Architect with 20+ years building and owning cloud platforms end-to-end. For the last decade I have owned the API platform, CI/CD, infrastructure, and security posture for a HIPAA-regulated, FISMA Moderate healthcare data system on AWS.
+
+\divider
+
+\cvsection{Skills}
+
+\skillgroup{Cloud \& Infrastructure}{%
+  \cvtag{AWS} \cvtag{Terraform} \cvtag{OpenTofu} \cvtag{Terragrunt} \cvtag{ECS/Fargate} \cvtag{Docker} \cvtag{Kong}}
+
+\skillgroup{CI/CD \& DevSecOps}{%
+  \cvtag{GitHub Actions} \cvtag{Automated Deploys} \cvtag{Ephemeral PR Envs} \cvtag{Blue/Green} \cvtag{Supply-Chain Hardening}}
+
+\skillgroup{Observability}{%
+  \cvtag{OpenTelemetry} \cvtag{Prometheus} \cvtag{Grafana} \cvtag{CloudWatch} \cvtag{Splunk}}
+
+\skillgroup{Languages}{%
+  \cvtag{C\#} \cvtag{TypeScript} \cvtag{JavaScript} \cvtag{Python} \cvtag{Rust} \cvtag{SQL} \cvtag{Lua} \cvtag{PHP}}
+
+\skillgroup{Frameworks \& Data}{%
+  \cvtag{.NET / ASP.NET Core} \cvtag{.NET Aspire} \cvtag{YARP} \cvtag{React} \cvtag{FastAPI} \cvtag{EF Core} \cvtag{PostgreSQL} \cvtag{MSSQL Server} \cvtag{MySQL} \cvtag{Redis}}
+
+\divider
+
+\cvsection{Education}
+
+\cvevent{B.S. in Computer Science}{Middle Tennessee State University}{December 2004}{Murfreesboro, TN}
+
+\divider
+
+\cvsection{Certifications}
+
+\cvevent{AWS Certified AI Practitioner}{Amazon Web Services}{August 2026}{}
+
+\switchcolumn
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     Main column
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cvsection{Experience}
+
+\cvevent{Senior Software Architect}{CareEvolution}{March 2015 -- Present}{Full Time Remote}
+\begin{itemize}
+  \item Architected and own the AWS platform (multi-account, multi-VPC) behind Orchestrate, CareEvolution's cloud-native healthcare data-integration product (Terminology, Convert, Insight, and Identity APIs) used across 200M+ lives.
+  \item Implemented the Kong API gateway and downstream-signed JWT authorization, with usage tracking and freemium tier enforcement.
+  \item Engineered a from-scratch gateway replacement in .NET 10 \& YARP as the sole developer featuring AWS Lambda request proxying, API keys and OIDC authentication.
+  \item Built a CI/CD platform with self-service ephemeral per-pull-request environments: dedicated ECS services, Postgres databases, and header based routing with automated smoke tests and teardown, plus blue/green production deploys on merge.
+  \item Hardened software delivery across services: SHA-pinned, least-privilege GitHub Actions gated by zizmor and actionlint with findings surfaced in GitHub Advanced Security; distroless, read-only-root-filesystem, capability-dropped containers on ARM64/Graviton Fargate.
+  \item Own cloud infrastructure-as-code across 15+ AWS accounts using Terraform/\allowbreak{}OpenTofu and 150+ reusable modules on Terragrunt, with Control Tower and IAM Identity Center SSO.
+  \item Drove org-wide security and compliance posture on a platform certified at FISMA Moderate, supporting a NIST 800-53 Rev.~5 control program: DNSSEC across all zones, AWS Security Hub, FIPS ALB policies, WAF, default encryption, and Tenable/Nessus vulnerability-scanning infrastructure.
+  \item Designed serverless services including a credential-management API with saga-style consistency and per-customer KMS keys with automated secret rotation.
+  \item Implemented caching and service-authentication workstream for an internal healthcare event-query platform (ASP.NET Core, React): a Redis L2 cache with a Lambda cache-writer, and a migration of service-to-service auth to AWS VPC Lattice SigV4 request signing.
+  \item Own logging, metrics, and tracing across the platform: implemented and maintained Splunk, plus OpenTelemetry/ADOT and Prometheus instrumentation.
+  \item Own the React front end for the Orchestrate developer portal and a UI-gated sandbox proxy offering free, quota-exempt API trials; also own self-service SFTP provisioning via AWS Transfer Family for pipelines processing billions of records.
+  \item Implemented the initial version of RKStudio, a clinical-research study platform within MyDataHelps: access control, organization settings, localization, blinded-study mode, and survey authoring, plus HIPAA-oriented security hardening (Veracode remediation, patient access policies).
+  \item Owned core subsystems of SupportCentral, an internal healthcare monitoring platform: a CQRS request/authorization pipeline, Roslyn-scripted monitoring sensors, Prometheus observability, and multi-channel alerting (Slack, PagerDuty, email).
+  \item Built internal automation in Rust (AWS Lambda on Graviton) for multi-tenant resource cleanup and Kong/Cognito user-inventory compliance reporting.
+\end{itemize}
+
+\divider
+
+\cvevent{Enterprise Architect}{Servpro Industries}{March 2014 -- March 2015}{Gallatin, TN}
+\begin{itemize}
+  \item Took over maintenance of Servpro's mobile app (Objective-C \& JavaScript on Apache Cordova) within the first month, then found and fixed several major performance issues in a new flagship product.
+  \item Won the department's rock star award the first period I was eligible; promoted to architect within the first year.
+\end{itemize}
+
+\divider
+
+\cvevent{Senior Software Developer}{Little Lambs Fundraising}{August 2010 -- March 2014}{Gallatin, TN}
+\begin{itemize}
+  \item Built integration and automation across warehouse and ordering systems: barcode picking for accuracy, multi-channel delivery notifications (call, text, email), and a Django CRM/order-entry system.
+  \item Owned all IT systems and decisions.
+\end{itemize}
+
+\divider
+
+\cvevent{Software Developer}{Cracker Barrel Old Country Store}{August 2004 -- August 2010}{Lebanon, TN}
+\begin{itemize}
+  \item Developed and maintained a PCI-compliant credit-card processing system in RPGLE on an iSeries server, interfacing with the Infinium package.
+  \item Built custom HR/Financial software (PHP, C\#, ASP.net) and integrated E-Verify with the existing HR system.
+\end{itemize}
+
+\end{paracol}
+
+\end{document}
