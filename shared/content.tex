@@ -59,11 +59,12 @@ EF Core, PostgreSQL, MSSQL Server, MySQL, Redis}
   \rItem{Architected and own the AWS platform (multi-account, multi-VPC) behind
     Orchestrate, CareEvolution's cloud-native healthcare data-integration product
     (Terminology, Convert, Insight, and Identity APIs) used across 200M+ lives.}
-  \rItem{Implemented the Kong API gateway with downstream-signed JWT authorization,
-    usage tracking, and freemium tier enforcement, then engineered its from-scratch
-    replacement in .NET 10 and YARP as the sole developer, featuring AWS Lambda
-    request proxying, API keys, and OIDC authentication, sustaining ~100 RPS with
-    payloads up to 150\,MB (full-history FHIR bundles, large clinical PDFs).}
+  \rItem{Implemented the Kong API gateway with downstream-signed JWT authorization
+    and freemium tier enforcement, then engineered its from-scratch replacement in
+    .NET 10 and YARP as the sole developer, with AWS Lambda request proxying, API
+    keys, and OIDC authentication; sustains ~100 RPS with payloads up to 150\,MB
+    (full-history FHIR bundles, large clinical PDFs) and has taken zero
+    gateway-related downtime in three years of production, upgrades included.}
   \rItem{Bootstrapped and own the portal front end (React/TypeScript): migrated
     Create React App to Vite, upgraded to TypeScript 6, introduced the front-end
     test suite, code-split a heavy shared bundle, and reworked Cognito/Amplify auth
