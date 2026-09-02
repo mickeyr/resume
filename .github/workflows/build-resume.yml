@@ -13,64 +13,43 @@ defaults:
   run:
     shell: bash
 
-permissions:
-  id-token: write
-  contents: write
-
+permissions: {}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Build Resume
+    timeout-minutes: 30
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      
+          persist-credentials: false
+
       - name: Install latex
         id: install_latex
         run: |
-           sudo apt-get update
-           sudo apt-get install texlive-full
-      
+          sudo apt-get update
+          sudo apt-get install texlive-full
+
       - name: Build resume
         run: make
-      
+
       - name: Calculate New Hendrix API Version
         id: versioning
-        uses: codacy/git-version@80c816f11db8dea5e3a81025f598193015b51832 # 2.8.0
+        uses: codacy/git-version@e81d6fdad74f9e114420d69ca8b47658f1182afb # v2.8.7
 
-      - name: Create Release
-        uses: actions/create-release@v1
-        id: create_release
-        with:
-          draft: false
-          prerelease: false
-          release_name: Release ${{ steps.versioning.outputs.version }}
-          tag_name: ${{ steps.versioning.outputs.version }}
+      - name: Publish release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Resume
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./resume.pdf
-          asset_name: resume.pdf
-          asset_content_type: application/pdf
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Two-Column Resume
-        id: upload-release-asset-twocol
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./resume-twocol.pdf
-          asset_name: resume-twocol.pdf
-          asset_content_type: application/pdf
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.versioning.outputs.version }}
+        run: |
+          gh release create "$VERSION" \
+            --title "Release $VERSION" \
+            --target "$GITHUB_SHA" \
+            --generate-notes \
+            resume.pdf resume-twocol.pdf
