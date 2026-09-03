@@ -26,16 +26,13 @@
 \newcommand{\myGithub}{mickeyr}
 \newcommand{\myLinkedin}{mickeyr}
 
-\newcommand{\mySummary}{Principal Software Developer with 20+ years building and owning cloud
-platforms end-to-end. For the last decade I have owned the API platform, CI/CD,
-infrastructure, and security posture for a HIPAA-regulated healthcare data system on
-AWS, certified at FISMA Moderate: from a Kong and .NET/YARP API gateway and 150+
-Terraform modules to supply-chain-hardened delivery pipelines.}
+\newcommand{\mySummary}{Principal Software Developer with 20+ years building cloud platforms end-to-end ---
+APIs, front ends, and the delivery and security infrastructure beneath them --- for a
+HIPAA-regulated, FISMA Moderate healthcare data system on AWS.}
 
-\newcommand{\mySummaryShort}{Principal Software Developer with 20+ years building and owning
-cloud platforms end-to-end. For the last decade I have owned the API platform, CI/CD,
-infrastructure, and security posture for a HIPAA-regulated, FISMA Moderate healthcare
-data system on AWS.}
+\newcommand{\mySummaryShort}{Principal Software Developer with 20+ years building cloud platforms end-to-end ---
+APIs, front ends, and the delivery and security infrastructure beneath them --- for a
+HIPAA-regulated, FISMA Moderate healthcare data system on AWS.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Skills
@@ -79,16 +76,18 @@ EF Core, PostgreSQL, MSSQL Server, MySQL, Redis}
     init, added gateway JWT validation middleware, and made its pandas output
     deterministic on ARM64, as part of owning logging, metrics, and tracing
     platform-wide (Splunk, OpenTelemetry/ADOT, Prometheus).}
+  \rItem{Wrote Python processors for an event-driven pipeline: EventBridge rules
+    route events to SQS queues consumed by Lambdas and ECS tasks that dispatch on
+    event type to transform clinical documents between formats and persist them
+    downstream.}
   \rItem{Designed backend services platform-wide: a credential-management API with
     saga-style consistency, per-customer KMS keys, and automated secret rotation;
     and a Redis L2 cache with a Lambda cache-writer plus a migration of
-    service-to-service auth to AWS VPC Lattice SigV4 request signing for an internal
-    healthcare event-query platform (ASP.NET Core, React).}
+    service-to-service auth to AWS VPC Lattice SigV4 for an internal event-query
+    platform (ASP.NET Core, React).}
   \rItem{Drive deep, daily use of AI coding agents (Claude Code, OpenAI Codex):
     author custom hooks, skills, subagents, and MCP integrations that automate code
-    review, release gating, and repo-specific workflows; built an internal
-    multi-agent orchestration system in Python with activation-driven scheduling,
-    LLM CLI adapters, and a web dashboard.}
+    review, release gating, and repo-specific workflows.}
   \rItem{Built a CI/CD platform with self-service ephemeral per-pull-request
     environments: dedicated ECS services, Postgres databases, and header-based
     routing with automated smoke tests and teardown, carrying dozens of environments
@@ -100,17 +99,14 @@ EF Core, PostgreSQL, MSSQL Server, MySQL, Redis}
   \rItem{Own cloud infrastructure-as-code and compliance posture across 15+ AWS
     accounts: Terraform/OpenTofu with 150+ reusable Terragrunt modules, Control
     Tower and IAM Identity Center SSO, on a platform certified at FISMA Moderate
-    under a NIST 800-53 Rev.~5 control program (DNSSEC, AWS Security Hub, FIPS ALB
-    policies, WAF, Tenable/Nessus scanning).}
+    under a NIST 800-53 Rev.~5 control program (DNSSEC, Security Hub, FIPS ALB
+    policies, WAF, Tenable/Nessus).}
   \rItem{Implemented the initial version of RKStudio, a clinical-research study
-    platform within MyDataHelps: access control, organization settings,
-    localization, blinded-study mode, and survey authoring, plus HIPAA-oriented
-    security hardening (Veracode remediation, patient access policies).}
-  \rItem{Owned core subsystems of SupportCentral, an internal healthcare monitoring
-    platform: a CQRS request/authorization pipeline, Roslyn-scripted monitoring
-    sensors, Prometheus observability, and multi-channel alerting; also built
-    internal automation in Rust on Graviton Lambdas for multi-tenant resource
-    cleanup and Kong/Cognito compliance reporting.}
+    platform within MyDataHelps (access control, localization, blinded-study mode,
+    survey authoring, HIPAA hardening), and owned core subsystems of SupportCentral,
+    an internal monitoring platform (CQRS authorization pipeline, Roslyn-scripted
+    sensors, Prometheus, multi-channel alerting), plus internal automation in Rust
+    on Graviton Lambdas.}
 }
 
 \newcommand{\bulletsServpro}{%

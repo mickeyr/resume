@@ -93,7 +93,7 @@
 
 \cvsection{Summary}
 
-Principal Software Developer with 20+ years building and owning cloud platforms end-to-end. For the last decade I have owned the API platform, CI/CD, infrastructure, and security posture for a HIPAA-regulated, FISMA Moderate healthcare data system on AWS.
+Principal Software Developer with 20+ years building cloud platforms end-to-end --- APIs, front ends, and the delivery and security infrastructure beneath them --- for a HIPAA-regulated, FISMA Moderate healthcare data system on AWS.
 
 \divider
 
@@ -143,13 +143,13 @@ Principal Software Developer with 20+ years building and owning cloud platforms 
   \item Bootstrapped and own the portal front end (React/TypeScript): migrated Create React App to Vite, upgraded to TypeScript 6, introduced the front-end test suite, code-split a heavy shared bundle, and reworked Cognito/Amplify auth with social logins plus signup abuse controls.
   \item Built and own the 25+ Node.js/TypeScript Lambdas behind it (npm workspaces, ESM, Jest): API-key issuance, usage metering, sandbox proxying, and Cognito registration triggers; wrote the self-service SFTP connection API end-to-end on Lambda and DynamoDB, feeding pipelines that process billions of records.
   \item Instrumented a Python/FastAPI clinical quality-measure and FHIR service with OpenTelemetry domain spans and gunicorn worker-level telemetry init, added gateway JWT validation middleware, and made its pandas output deterministic on ARM64, as part of owning logging, metrics, and tracing platform-wide (Splunk, OpenTelemetry/ADOT, Prometheus).
-  \item Designed backend services platform-wide: a credential-management API with saga-style consistency, per-customer KMS keys, and automated secret rotation; and a Redis L2 cache with a Lambda cache-writer plus a migration of service-to-service auth to AWS VPC Lattice SigV4 request signing for an internal healthcare event-query platform (ASP.NET Core, React).
-  \item Drive deep, daily use of AI coding agents (Claude Code, OpenAI Codex): author custom hooks, skills, subagents, and MCP integrations that automate code review, release gating, and repo-specific workflows; built an internal multi-agent orchestration system in Python with activation-driven scheduling, LLM CLI adapters, and a web dashboard.
+  \item Wrote Python processors for an event-driven pipeline: EventBridge rules route events to SQS queues consumed by Lambdas and ECS tasks that dispatch on event type to transform clinical documents between formats and persist them downstream.
+  \item Designed backend services platform-wide: a credential-management API with saga-style consistency, per-customer KMS keys, and automated secret rotation; and a Redis L2 cache with a Lambda cache-writer plus a migration of service-to-service auth to AWS VPC Lattice SigV4 for an internal event-query platform (ASP.NET Core, React).
+  \item Drive deep, daily use of AI coding agents (Claude Code, OpenAI Codex): author custom hooks, skills, subagents, and MCP integrations that automate code review, release gating, and repo-specific workflows.
   \item Built a CI/CD platform with self-service ephemeral per-pull-request environments: dedicated ECS services, Postgres databases, and header-based routing with automated smoke tests and teardown, carrying dozens of environments a week, plus blue/green production deploys on merge.
   \item Hardened software delivery across a dozen repositories: SHA-pinned, least-privilege GitHub Actions gated by zizmor and actionlint with findings surfaced in GitHub Advanced Security; distroless, read-only-root-filesystem, capability-dropped containers on ARM64/Graviton Fargate.
-  \item Own cloud infrastructure-as-code and compliance posture across 15+ AWS accounts: Terraform/OpenTofu with 150+ reusable Terragrunt modules, Control Tower and IAM Identity Center SSO, on a platform certified at FISMA Moderate under a NIST 800-53 Rev.~5 control program (DNSSEC, AWS Security Hub, FIPS ALB policies, WAF, Tenable/Nessus scanning).
-  \item Implemented the initial version of RKStudio, a clinical-research study platform within MyDataHelps: access control, organization settings, localization, blinded-study mode, and survey authoring, plus HIPAA-oriented security hardening (Veracode remediation, patient access policies).
-  \item Owned core subsystems of SupportCentral, an internal healthcare monitoring platform: a CQRS request/authorization pipeline, Roslyn-scripted monitoring sensors, Prometheus observability, and multi-channel alerting; also built internal automation in Rust on Graviton Lambdas for multi-tenant resource cleanup and Kong/Cognito compliance reporting.
+  \item Own cloud infrastructure-as-code and compliance posture across 15+ AWS accounts: Terraform/OpenTofu with 150+ reusable Terragrunt modules, Control Tower and IAM Identity Center SSO, on a platform certified at FISMA Moderate under a NIST 800-53 Rev.~5 control program (DNSSEC, Security Hub, FIPS ALB policies, WAF, Tenable/Nessus).
+  \item Implemented the initial version of RKStudio, a clinical-research study platform within MyDataHelps (access control, localization, blinded-study mode, survey authoring, HIPAA hardening), and owned core subsystems of SupportCentral, an internal monitoring platform (CQRS authorization pipeline, Roslyn-scripted sensors, Prometheus, multi-channel alerting), plus internal automation in Rust on Graviton Lambdas.
 \end{itemize}
 
 \divider
