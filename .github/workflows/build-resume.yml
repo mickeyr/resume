@@ -34,7 +34,7 @@ jobs:
         id: install_latex
         run: |
           sudo apt-get update
-          sudo apt-get install texlive-full
+          sudo apt-get install texlive-full pandoc
 
       - name: Build resume
         run: make
@@ -52,4 +52,4 @@ jobs:
             --title "Release $VERSION" \
             --target "$GITHUB_SHA" \
             --generate-notes \
-            resume.pdf resume-twocol.pdf
+            resume.pdf resume-twocol.pdf resume-ats.docx

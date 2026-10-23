@@ -50,22 +50,29 @@
 %%% Needed to divide into several files
 \usepackage{import}
 
+\input{shared/content.tex}
+
+% cvitems outside a \cventry cell (see resume/experience.tex): restore the
+% description font the cell applied, and undo the -4mm pulls tuned for that cell.
+\newenvironment{cvbullets}
+  {\vspace{2mm}\fontsize{9pt}{1em}\bodyfontlight\color{text}\emergencystretch=1em\begin{cvitems}}
+  {\end{cvitems}\vspace{6mm}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Personal Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Essentials 
-\name{Malcolm}{Roberts}
-\address{1049 Laffite Way, Gallatin TN, 37066}
-\mobile{(615) 450-5940} 
+%%% Essentials
+\name{\myFirstName}{\myLastName}
+\address{\myAddress}
+\mobile{\myPhone}
 
 %%% Social
-\email{malcolm@mroberts.dev}
+\email{\myEmail}
 %\homepage{www.posquit0.com}
-\github{mickeyr}
-\linkedin{mickeyr}
+\github{\myGithub}
+\linkedin{\myLinkedin}
 %%% Optionals
-\position{Principal Software Developer} 
+\position{\myPosition}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,77 @@
+% !TeX program = xelatex
+%%% ATS layout: single column, no graphics, no tables, no icons, plain headings.
+%%% This file exists to be converted, not admired: `make resume-ats.docx` runs it
+%%% through pandoc, and pandoc can only see structure a plain article class emits.
+%%% The fancier candidates (awesome-cv, altacv, moderncv) encode headings, dates and
+%%% contact details in class-specific macros and boxes that pandoc drops on the floor.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*,itemsep=2pt,topsep=2pt}
+\pagestyle{empty}
+
+\input{shared/content.tex}
+
+\begin{document}
+% Ragged right: justification cannot stretch lines full of unbreakable
+% slash-joined tech names ("Terraform/OpenTofu"), and overflows the margin instead.
+\raggedright
+
+\begin{center}
+{\LARGE \myName}\\[2pt]
+\myPosition\\[2pt]
+% One contact item per line: pandoc drops \textbar, and a bare | typesets as an
+% em dash in the default text font, so separators are a line break instead.
+\myEmail\\
+\myPhone\\
+\myCity\\
+github.com/\myGithub\\
+linkedin.com/in/\myLinkedin
+\end{center}
+
+\section*{Summary}
+\mySummary
+
+\section*{Skills}
+\begin{itemize}
+\item Cloud \& Infrastructure: \skillsCloud
+\item CI/CD \& DevSecOps: \skillsCicd
+\item AI-Assisted Development: \skillsAi
+\item Observability: \skillsObservability
+\item Languages: \skillsLanguages
+\item Frameworks \& Data: \skillsFrameworks
+\end{itemize}
+
+\section*{Experience}
+
+\subsection*{Principal Software Developer, CareEvolution}
+March 2015 -- Present, Full Time Remote
+\begin{itemize}
+\bulletsCareEvolution
+\end{itemize}
+
+\subsection*{Senior Software Developer, Servpro Industries}
+March 2014 -- March 2015, Gallatin, TN
+\begin{itemize}
+\bulletsServpro
+\end{itemize}
+
+\subsection*{Senior Software Developer, Little Lambs Fundraising}
+August 2010 -- March 2014, Gallatin, TN
+\begin{itemize}
+\bulletsLittleLambs
+\end{itemize}
+
+\subsection*{Software Developer, Cracker Barrel Old Country Store}
+August 2004 -- August 2010, Lebanon, TN
+\begin{itemize}
+\bulletsCrackerBarrel
+\end{itemize}
+
+\section*{Education}
+B.S. in Computer Science, Middle Tennessee State University, Murfreesboro, TN --- December 2004
+
+\section*{Certifications}
+AWS Certified AI Practitioner, Amazon Web Services --- August 2026
+
+\end{document}

@@ -76,6 +76,11 @@
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
 \RequirePackage{fontawesome5}
+% XeTeX writes no space characters into the PDF; extractors (ATS parsers, copy/paste)
+% infer word breaks from gap width. These fonts' natural space (~0.2em) sits under
+% that threshold, so text extracted as "ArchitectedandowntheAWSplatform".
+% Per-font defaults, because both packages below reset \defaultfontfeatures.
+\defaultfontfeatures[Roboto,RobotoCondensed,SourceSansPro]{WordSpace=1.4}
 \RequirePackage{roboto}
 \RequirePackage[default,opentype]{sourcesanspro}
 % Needed for the photo ID

@@ -218,3 +218,6 @@ TSWLatexianTemp*
 
 # expex forward references with \gathertags
 *-tags.tex
+
+## Built from resume-ats.tex by `make`; attached to releases, never committed.
+resume-ats.docx
