@@ -12,6 +12,22 @@
 
 \input{shared/content.tex}
 
+%%% pandoc does not implement etoolbox's conditionals and silently drops them with
+%%% everything inside, which would leave the docx with no sections. TeX ignores these
+%%% (content.tex already loaded etoolbox); pandoc gets the non-empty branch, so an
+%%% empty field or list shows as a blank line or bare heading in the docx only.
+\providecommand{\ifdefempty}[3]{#3}
+\providecommand{\ifblank}[3]{#3}
+
+%%% Renderers for the section lists in shared/content.tex
+\newcommand{\rSkill}[2]{\item #1: #2}
+\newcommand{\rJob}[5]{%
+  \subsection*{#1, #2}
+  #4, #3
+  \ifblank{#5}{\par}{\begin{itemize}#5\end{itemize}}}
+\newcommand{\rEducation}[4]{#1, #2, #3 --- #4\par}
+\newcommand{\rCertification}[3]{#1, #2 --- #3\par}
+
 \begin{document}
 % Ragged right: justification cannot stretch lines full of unbreakable
 % slash-joined tech names ("Terraform/OpenTofu"), and overflows the margin instead.
@@ -22,56 +38,36 @@
 \myPosition\\[2pt]
 % One contact item per line: pandoc drops \textbar, and a bare | typesets as an
 % em dash in the default text font, so separators are a line break instead.
-\myEmail\\
-\myPhone\\
-\myCity\\
-github.com/\myGithub\\
-linkedin.com/in/\myLinkedin
+\myEmail
+\ifdefempty{\myPhone}{}{\\\myPhone}
+\\\myCity
+\ifdefempty{\myGithub}{}{\\github.com/\myGithub}
+\ifdefempty{\myLinkedin}{}{\\linkedin.com/in/\myLinkedin}
 \end{center}
 
 \section*{Summary}
 \mySummary
 
+\ifdefempty{\mySkills}{}{%
 \section*{Skills}
 \begin{itemize}
-\item Cloud \& Infrastructure: \skillsCloud
-\item CI/CD \& DevSecOps: \skillsCicd
-\item AI-Assisted Development: \skillsAi
-\item Observability: \skillsObservability
-\item Languages: \skillsLanguages
-\item Frameworks \& Data: \skillsFrameworks
+\mySkills
 \end{itemize}
+}
 
+\ifdefempty{\myExperience}{}{%
 \section*{Experience}
+\myExperience
+}
 
-\subsection*{Principal Software Developer, CareEvolution}
-March 2015 -- Present, Full Time Remote
-\begin{itemize}
-\bulletsCareEvolution
-\end{itemize}
-
-\subsection*{Senior Software Developer, Servpro Industries}
-March 2014 -- March 2015, Gallatin, TN
-\begin{itemize}
-\bulletsServpro
-\end{itemize}
-
-\subsection*{Senior Software Developer, Little Lambs Fundraising}
-August 2010 -- March 2014, Gallatin, TN
-\begin{itemize}
-\bulletsLittleLambs
-\end{itemize}
-
-\subsection*{Software Developer, Cracker Barrel Old Country Store}
-August 2004 -- August 2010, Lebanon, TN
-\begin{itemize}
-\bulletsCrackerBarrel
-\end{itemize}
-
+\ifdefempty{\myEducation}{}{%
 \section*{Education}
-B.S. in Computer Science, Middle Tennessee State University, Murfreesboro, TN --- December 2004
+\myEducation
+}
 
+\ifdefempty{\myCertifications}{}{%
 \section*{Certifications}
-AWS Certified AI Practitioner, Amazon Web Services --- August 2026
+\myCertifications
+}
 
 \end{document}

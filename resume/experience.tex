@@ -1,41 +1,9 @@
+%%% \rJob puts the bullets after its \cventry, not in its description argument: that
+%%% argument is a tabular cell, which cannot break across pages, so a long entry jumped
+%%% whole to the next page.
+\ifdefempty{\myExperience}{}{%
 \cvsection{Experience}
-%%% Bullets sit after each \cventry, not in its description argument: that argument is a
-%%% tabular cell, which cannot break across pages, so a long entry jumped whole to the next page.
 \begin{cventries}
-  \cventry
-    {Principal Software Developer}
-    {CareEvolution}
-    {Full Time Remote}
-    {March 2015 - Present}
-    {}
-  \begin{cvbullets}
-    \bulletsCareEvolution
-  \end{cvbullets}
-  \cventry
-    {Senior Software Developer}
-    {Servpro Industries}
-    {Gallatin, TN}
-    {March 2014 - March 2015}
-    {}
-  \begin{cvbullets}
-    \bulletsServpro
-  \end{cvbullets}
-  \cventry
-    {Senior Software Developer}
-    {Little Lambs Fundraising}
-    {Gallatin, TN}
-    {August 2010 - March 2014}
-    {}
-  \begin{cvbullets}
-    \bulletsLittleLambs
-  \end{cvbullets}
-  \cventry
-    {Software Developer}
-    {Cracker Barrel Old Country Store}
-    {Lebanon, TN}
-    {August 2004 - August 2010}
-    {}
-  \begin{cvbullets}
-    \bulletsCrackerBarrel
-  \end{cvbullets}
+  \myExperience
 \end{cventries}
+}

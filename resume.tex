@@ -58,19 +58,30 @@
   {\vspace{2mm}\fontsize{9pt}{1em}\bodyfontlight\color{text}\emergencystretch=1em\begin{cvitems}}
   {\end{cvitems}\vspace{6mm}}
 
+%%% Renderers for the section lists in shared/content.tex
+\newcommand{\rSkill}[2]{\cvskill{#1}{#2}}
+%%% \cventry ends in horizontal mode, and the space after it is part of the tuned
+%%% gap above the bullets: no % at the end of that line. Without bullets, \par ends
+%%% the entry's paragraph, or the next entry joins it and overflows the margin.
+\newcommand{\rJob}[5]{%
+  \cventry{#1}{#2}{#3}{#4}{}
+  \ifblank{#5}{\par}{\begin{cvbullets}#5\end{cvbullets}}}
+\newcommand{\rEducation}[4]{\cventry{#1}{#2}{#3}{#4}{}}
+\newcommand{\rCertification}[3]{\cventry{#1}{#2}{}{#3}{}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Personal Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Essentials
 \name{\myFirstName}{\myLastName}
-\address{\myAddress}
-\mobile{\myPhone}
+\ifdefempty{\myAddress}{}{\address{\myAddress}}
+\ifdefempty{\myPhone}{}{\mobile{\myPhone}}
 
 %%% Social
 \email{\myEmail}
 %\homepage{www.posquit0.com}
-\github{\myGithub}
-\linkedin{\myLinkedin}
+\ifdefempty{\myGithub}{}{\github{\myGithub}}
+\ifdefempty{\myLinkedin}{}{\linkedin{\myLinkedin}}
 %%% Optionals
 \position{\myPosition}
 
@@ -81,7 +92,7 @@
 %%% Make a footer for CV with three arguments(<left>, <center>, <right>)
 \makecvfooter
   {\today}
-  {Malcolm Roberts~~~·~~~Résumé}
+  {\myName~~~·~~~Résumé}
   {\thepage}
 
 \begin{document}
