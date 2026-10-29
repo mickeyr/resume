@@ -32,13 +32,14 @@ local function drop_if_empty(block)
   if #block.content == 0 then return {} end
 end
 
--- A heading followed by a heading of the same or a higher level (or by nothing) has
--- an empty section under it. A lower-level heading (a job under Experience) is content.
+-- A section heading (level 1) followed by another one, or by nothing, has an empty
+-- section under it. Level-2 headings are left alone: a job with no dates, location
+-- or bullets is just its heading, and is still content.
 local function drop_empty_sections(doc)
   local blocks = doc.blocks
   for i = #blocks, 1, -1 do
     local b, nxt = blocks[i], blocks[i + 1]
-    if b.t == "Header" and (nxt == nil or (nxt.t == "Header" and nxt.level <= b.level)) then
+    if b.t == "Header" and b.level == 1 and (nxt == nil or (nxt.t == "Header" and nxt.level == 1)) then
       blocks:remove(i)
     end
   end
