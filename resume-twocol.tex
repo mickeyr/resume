@@ -87,7 +87,7 @@
 \personalinfo{%
   \email{\myEmail}
   \ifdefempty{\myPhone}{}{\phone{\myPhone}}
-  \location{\myCity}
+  \ifdefempty{\myCity}{}{\location{\myCity}}
   \ifdefempty{\myGithub}{}{\github{\myGithub}}
   \ifdefempty{\myLinkedin}{}{\linkedin{\myLinkedin}}
 }

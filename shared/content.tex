@@ -13,8 +13,18 @@
 %%%
 %%% Sections are lists of \rSkill, \rJob, \rEducation and \rCertification calls, which
 %%% each layout defines in its own macros. The layouts therefore hold no personal data:
-%%% replacing this one file retargets every layout at someone else's resume. A list may
-%%% be empty, and the layouts test it with etoolbox's \ifdefempty to drop the heading.
+%%% replacing this one file retargets every layout at someone else's resume.
+%%%
+%%% Empty values follow etoolbox's rules, because the layouts test them with
+%%% \ifdefempty and \ifblank, and a space counts as content to \ifdefempty:
+%%%  - A missing phone, address, city, GitHub or LinkedIn is an empty body: {}.
+%%%  - A list with no entries is defined with an empty body, {} or {% then a newline
+%%%    and the closing brace; never with whitespace inside. It prints no heading.
+%%%  - A job without bullets passes a literal empty 5th argument, \rJob{...}{...}{...}{...}{},
+%%%    never a \bullets macro with an empty body.
+%%%  - The other \rJob, \rEducation and \rCertification arguments are literal text, not
+%%%    macros, and may be empty ({}); the ATS layout compares them unexpanded.
+%%%  - A list holds one call per line, inside {% ... }.
 \RequirePackage{etoolbox}
 \providecommand{\rItem}[1]{\item #1}
 

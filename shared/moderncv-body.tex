@@ -27,7 +27,7 @@
 \email{\myEmail}
 \ifdefempty{\myGithub}{}{\social[github]{\myGithub}}
 \ifdefempty{\myLinkedin}{}{\social[linkedin]{\myLinkedin}}
-\extrainfo{\myCity}
+\ifdefempty{\myCity}{}{\extrainfo{\myCity}}
 
 \begin{document}
 \makecvtitle

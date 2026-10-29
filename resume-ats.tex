@@ -14,19 +14,24 @@
 
 %%% pandoc does not implement etoolbox's conditionals and silently drops them with
 %%% everything inside, which would leave the docx with no sections. TeX ignores these
-%%% (content.tex already loaded etoolbox); pandoc gets the non-empty branch, so an
-%%% empty field or list shows as a blank line or bare heading in the docx only.
+%%% (content.tex already loaded etoolbox); pandoc gets the non-empty branch, and
+%%% docx-cleanup.lua then removes the empty lines and headings that leaves.
 \providecommand{\ifdefempty}[3]{#3}
 \providecommand{\ifblank}[3]{#3}
+
+%%% \rSep{separator}{text}: both, or nothing when text is empty, so an empty optional
+%%% field leaves no dangling comma. \ifstrequal works in pandoc too (inline only), and
+%%% it compares without expanding, which suits the literal text these fields hold.
+\newcommand{\rSep}[2]{\ifstrequal{#2}{}{}{#1#2}}
 
 %%% Renderers for the section lists in shared/content.tex
 \newcommand{\rSkill}[2]{\item #1: #2}
 \newcommand{\rJob}[5]{%
-  \subsection*{#1, #2}
-  #4, #3
+  \subsection*{#1\rSep{, }{#2}}
+  \ifstrequal{#4}{}{#3}{#4\rSep{, }{#3}}
   \ifblank{#5}{\par}{\begin{itemize}#5\end{itemize}}}
-\newcommand{\rEducation}[4]{#1, #2, #3 --- #4\par}
-\newcommand{\rCertification}[3]{#1, #2 --- #3\par}
+\newcommand{\rEducation}[4]{#1\rSep{, }{#2}\rSep{, }{#3}\rSep{ --- }{#4}\par}
+\newcommand{\rCertification}[3]{#1\rSep{, }{#2}\rSep{ --- }{#3}\par}
 
 \begin{document}
 % Ragged right: justification cannot stretch lines full of unbreakable
@@ -40,7 +45,7 @@
 % em dash in the default text font, so separators are a line break instead.
 \myEmail
 \ifdefempty{\myPhone}{}{\\\myPhone}
-\\\myCity
+\ifdefempty{\myCity}{}{\\\myCity}
 \ifdefempty{\myGithub}{}{\\github.com/\myGithub}
 \ifdefempty{\myLinkedin}{}{\\linkedin.com/in/\myLinkedin}
 \end{center}

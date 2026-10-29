@@ -28,8 +28,8 @@ resume-moderncv-banking.pdf: shared/moderncv-body.tex $(SHARED)
 resume-moderncv-classic.pdf: shared/moderncv-body.tex $(SHARED)
 resume-ats.pdf: $(SHARED)
 
-resume-ats.docx: resume-ats.tex $(SHARED)
-	pandoc --standalone $< -o $@
+resume-ats.docx: resume-ats.tex docx-cleanup.lua $(SHARED)
+	pandoc --standalone --lua-filter=docx-cleanup.lua $< -o $@
 
 clean:
 	rm -f *.aux *.log *.out *.pdf *.docx
