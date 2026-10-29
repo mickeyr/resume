@@ -47,20 +47,22 @@
 
 %-------------------------------------------------------------------------------
 %	PERSONAL INFORMATION
-%	Comment any of the lines below if they are not required
+%	Taken from shared/content.tex; an empty field there prints nothing
 %-------------------------------------------------------------------------------
+\input{shared/content.tex}
+
 % Available options: circle|rectangle,edge/noedge,left/right
 %\photo[circle,noedge,left]{./examples/profile}
-\name{Malcolm}{Roberts}
-\position{Principal Software Developer}
-\address{1049 Laffite Way, Gallatin TN, 37066}
+\name{\myFirstName}{\myLastName}
+\position{\myPosition}
+\ifdefempty{\myAddress}{}{\address{\myAddress}}
 
-\mobile{(615) 450-5940}
-\email{malcolm@mroberts.dev}
+\ifdefempty{\myPhone}{}{\mobile{\myPhone}}
+\email{\myEmail}
 %\dateofbirth{January 1st, 1970}
 %\homepage{www.posquit0.com}
-\github{mickeyr}
-\linkedin{mickeyr}
+\ifdefempty{\myGithub}{}{\github{\myGithub}}
+\ifdefempty{\myLinkedin}{}{\linkedin{\myLinkedin}}
 % \gitlab{gitlab-id}
 % \stackoverflow{SO-id}{SO-name}
 % \twitter{@twit}
@@ -108,7 +110,7 @@
 % Leave any of these blank if they are not needed
 \makecvfooter
 {\today}
-{Malcolm Roberts~~~·~~~Cover Letter}
+{\myName~~~·~~~Cover Letter}
 {}
 
 % Print the title with above letter information
